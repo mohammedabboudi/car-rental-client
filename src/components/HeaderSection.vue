@@ -1,10 +1,7 @@
 <template>
   <header>
     <LogoWidget :size="{ width: '30px' }" />
-    <NavBarWidget
-      @open-signin="openSigninModal"
-      @open-signup="openSignupModal"
-    />
+    <NavBarWidget />
   </header>
 </template>
 
@@ -13,14 +10,6 @@ import NavBarWidget from "./widgets/NavBarWidget.vue";
 import LogoWidget from "./widgets/LogoWidget.vue";
 export default {
   components: { NavBarWidget, LogoWidget },
-  methods: {
-    openSigninModal() {
-      this.$emit("openSignin");
-    },
-    openSignupModal() {
-      this.$emit("openSignup");
-    },
-  },
 };
 </script>
 

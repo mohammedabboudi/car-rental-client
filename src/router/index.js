@@ -1,7 +1,19 @@
 import { createRouter, createWebHistory } from "vue-router";
 import HomeView from "../views/main/HomePage.vue";
-import DashboardPage from "../views/dashboard/DashboardPage.vue"
+import SigninPage from "../views/SigninPage.vue"
+import RegisterPage from "../views/RegisterPage.vue"
 import NotFoundPage from "../views/NotFoundPage.vue";
+
+
+// const DashboardPage = () => import('../views/dashboard/DashboardPage.vue');
+
+import DashboardPage from "@/views/dashboard/DashboardPage.vue";
+import OrderSection from '@/views/dashboard/sections/OrderSection.vue';
+import CarSection from '@/views/dashboard/sections/CarSection.vue';
+import EmployeeSection from '@/views/dashboard/sections/EmployeeSection.vue';
+import UserSection from '@/views/dashboard/sections/UserSection.vue';
+import BrandSection from '@/views/dashboard/sections/BrandSection.vue';
+import SettingSection from '@/views/dashboard/sections/SettingSection.vue';
 
 const routes = [
   {
@@ -10,18 +22,51 @@ const routes = [
     component: HomeView,
   },
   {
-    path: "/dashboard",
-    name: "dashboard",
-    component: DashboardPage,
+    path: "/signin",
+    name: "signin",
+    component: SigninPage,
   },
   {
-    path: "/cars",
-    name: "cars",
-    // route level code-splitting
-    // this generates a separate chunk (cars.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () =>
-      import(/* webpackChunkName: "cars" */ "../views/main/cars/CarsPage.vue"),
+    path: "/register",
+    name: "register",
+    component: RegisterPage,
+  },
+  { 
+    path: '/dashboard',
+    name: 'dashboard',
+    component: DashboardPage,
+    children: [
+      { 
+        path: 'orders',
+        name: 'orders',
+        component: OrderSection
+      },
+      { 
+        path: 'cars',
+        name: 'cars',
+        component: CarSection
+      },
+      { 
+        path: 'employees',
+        name: 'employees',
+        component: EmployeeSection
+      },
+      { 
+        path: 'users',
+        name: 'users',
+        component: UserSection
+      },
+      { 
+        path: 'brands',
+        name: 'brands',
+        component: BrandSection
+      },
+      { 
+          path: 'settings',
+          name: 'settings',
+          component: SettingSection
+      },
+    ]
   },
   {
     path: "/:catchAll(.*)",

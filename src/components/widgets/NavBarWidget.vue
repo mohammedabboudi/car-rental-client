@@ -18,8 +18,15 @@
                 <router-link to="/cars" class="nav-link">Cars</router-link>
             </li>
         </ul>
-            <button class="btn btn-success signin me-3 ms-3" data-bs-toggle="modal" data-bs-target="#authModal" data-bs-whatever="@mdo" @click="signInModal">Signin</button>
-            <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#authModal" data-bs-whatever="@mdo" @click="signUpModal">Register</button>
+        <div v-if="authenticated">
+          <form @submit.prevent="handleLogout">
+            <button type="submit" class="btn btn-success">Logout</button>
+          </form>
+        </div>
+        <div class="d-flex" v-else >
+          <router-link to="/signin" class="nav-link"><button type="button" class="btn btn-success signin me-3 ms-3">Signin</button></router-link>
+          <router-link to="/register" class="nav-link"><button type="button" class="btn btn-success">Register</button></router-link>
+        </div>
         </div>
         </div>
     </div>
@@ -27,15 +34,24 @@
 </template>
     
 <script>
+import axios from 'axios';
+import { useAuthStore } from '@/stores/auth';
+import router from '@/router';
+
   export default {
-    methods: {
-      signInModal() {
-        this.$emit("open-signin");
-      },
-      signUpModal() {
-        this.$emit("open-signup");
-      },
-    },
+    setup() {
+      const store = useAuthStore();
+      let authenticated = store.authenticated;
+      const handleLogout = () => {
+        return axios.delete('http://localhost:5000/api/auth/logout').then(response => {
+          store.clearAccessToken();
+          authenticated = store.authenticated;
+          location.reload();
+        })
+      }
+
+      return { authenticated, handleLogout }
+    }
   }
 </script>
     
