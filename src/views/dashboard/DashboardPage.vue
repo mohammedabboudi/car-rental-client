@@ -21,27 +21,27 @@
         <ul class="nav flex-column">
           <li class="nav-item d-flex">
               <span data-feather="home" class="align-text-bottom"></span>
-              <router-link to="/dashboard/orders" class="nav-link" aria-current="page">Orders</router-link>
+              <router-link to="/dashboard/order" class="nav-link" aria-current="page">Orders</router-link>
           </li>
           <li class="nav-item d-flex">
               <span data-feather="file" class="align-text-bottom"></span>
-              <router-link to="/dashboard/cars" class="nav-link" aria-current="page">Cars</router-link>
+              <router-link to="/dashboard/car" class="nav-link" aria-current="page">Cars</router-link>
           </li>
           <li class="nav-item d-flex">
               <span data-feather="shopping-cart" class="align-text-bottom"></span>
-              <router-link to="/dashboard/employees" class="nav-link" aria-current="page">Employees</router-link>
+              <router-link to="/dashboard/employee" class="nav-link" aria-current="page">Employees</router-link>
           </li>
           <li class="nav-item d-flex">
-              <span data-feather="users" class="align-text-bottom"></span>
-              <router-link to="/dashboard/users" class="nav-link" aria-current="page">Users</router-link>
+              <span data-feather="user" class="align-text-bottom"></span>
+              <router-link to="/dashboard/user" class="nav-link" aria-current="page">Users</router-link>
           </li>
           <li class="nav-item d-flex">
               <span data-feather="brands" class="align-text-bottom"></span>
-              <router-link to="/dashboard/brands" class="nav-link" aria-current="page">Brands</router-link>
+              <router-link to="/dashboard/brand" class="nav-link" aria-current="page">Brands</router-link>
           </li>
           <li class="nav-item d-flex">
               <span data-feather="layers" class="align-text-bottom"></span>
-              <router-link to="/dashboard/settings" class="nav-link" aria-current="page">Settings</router-link>
+              <router-link to="/dashboard/setting" class="nav-link" aria-current="page">Settings</router-link>
           </li>
         </ul>
       </div>
@@ -68,7 +68,7 @@ export default {
       const store = useAuthStore();
       let authenticated = store.authenticated;
       const handleLogout = () => {
-        return axios.delete('api/auth/logout').then(response => {
+        return axios.delete('auth/logout').then(response => {
             store.clearAccessToken();
             authenticated = store.authenticated;
             router.push('/');

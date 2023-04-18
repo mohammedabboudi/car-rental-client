@@ -1,5 +1,8 @@
 <template>
-    <h1>Users</h1>
+    <div class="d-flex justify-content-between pb-4">
+        <h1>Users</h1>
+        <button class="btn btn-success new-user">New User</button>
+    </div>
     <table class="table">
         <thead class="table-dark">
             <tr>

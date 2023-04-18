@@ -36,14 +36,13 @@
 <script>
 import axios from 'axios';
 import { useAuthStore } from '@/stores/auth';
-import router from '@/router';
 
   export default {
     setup() {
       const store = useAuthStore();
       let authenticated = store.authenticated;
       const handleLogout = () => {
-        return axios.delete('http://localhost:5000/api/auth/logout').then(response => {
+        return axios.delete('auth/logout').then(response => {
           store.clearAccessToken();
           authenticated = store.authenticated;
           location.reload();

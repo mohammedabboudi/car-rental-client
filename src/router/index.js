@@ -1,11 +1,10 @@
 import { createRouter, createWebHistory } from "vue-router";
 import HomeView from "../views/main/HomePage.vue";
-import SigninPage from "../views/SigninPage.vue"
-import RegisterPage from "../views/RegisterPage.vue"
+import SigninPage from "../views/SigninPage.vue";
+import RegisterPage from "../views/RegisterPage.vue";
 import NotFoundPage from "../views/NotFoundPage.vue";
+import CarsPage from "@/views/main/cars/CarsPage.vue";
 
-
-// const DashboardPage = () => import('../views/dashboard/DashboardPage.vue');
 
 import DashboardPage from "@/views/dashboard/DashboardPage.vue";
 import OrderSection from '@/views/dashboard/sections/OrderSection.vue';
@@ -31,39 +30,44 @@ const routes = [
     name: "register",
     component: RegisterPage,
   },
+  {
+    path: "/cars",
+    name: "cars",
+    component: CarsPage,
+  },
   { 
     path: '/dashboard',
     name: 'dashboard',
     component: DashboardPage,
     children: [
       { 
-        path: 'orders',
-        name: 'orders',
+        path: 'order',
+        name: 'order',
         component: OrderSection
       },
       { 
-        path: 'cars',
-        name: 'cars',
+        path: 'car',
+        name: 'car',
         component: CarSection
       },
       { 
-        path: 'employees',
-        name: 'employees',
+        path: 'employee',
+        name: 'employee',
         component: EmployeeSection
       },
       { 
-        path: 'users',
-        name: 'users',
+        path: 'user',
+        name: 'user',
         component: UserSection
       },
       { 
-        path: 'brands',
-        name: 'brands',
+        path: 'brand',
+        name: 'brand',
         component: BrandSection
       },
       { 
-          path: 'settings',
-          name: 'settings',
+          path: 'setting',
+          name: 'setting',
           component: SettingSection
       },
     ]

@@ -1,5 +1,8 @@
 <template>
-    <h1>Our Employees</h1>
+    <div class="d-flex justify-content-between pb-4">
+        <h1>Our Employees</h1>
+        <button class="btn btn-success new-employee">New Employee</button>
+    </div>
     <table class="table">
         <thead class="table-dark">
             <tr>

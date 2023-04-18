@@ -52,28 +52,41 @@ export default {
                         signUp(firstname.value, lastname.value, email.value, password.value);
                     } else {
                         error.value = "the confrmation password doesn't match the password"
+                        clearMessages();
                     }
                 } else {
                     error.value ='some values must be entered'
+                    clearMessages();
                 }
             }
 
             const signUp = async (first_name, last_name, email, password) => {
 
                 try {
+                    const response = await axios.post('auth/signup', { first_name, last_name, email, password })
+                    success.value = response.data.message;
 
-                    const response = await axios.post('http://localhost:5000/auth/signup', { first_name, last_name, email, password })
+                    setTimeout(() => { 
+                        error.value = '';
+                        success.value = '';
+                        router.push('/signin');
+                    }, 5000);
 
-                    console.log(response);
-
-                } catch (error) {
-
-                    console.log(error)
+                } catch (err) {
+                    error.value = err.response.data.message;
+                    clearMessages();
                 }
 
-                
-
             }
+
+
+            const clearMessages = () => {
+                setTimeout(() => { 
+                        error.value = '';
+                        success.value = '';
+                }, 5000);
+            }
+            
 
             return { firstname, lastname, email, password, confirmPassword, handleSubmit, error, success }
     }

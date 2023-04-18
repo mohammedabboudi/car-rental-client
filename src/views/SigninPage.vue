@@ -23,6 +23,7 @@
 
 <script>
 import { useAuthStore } from '@/stores/auth';
+import VueCookies from 'vue-cookies'
 
 import FormWidget from '@/components/widgets/FormWidget.vue';
 import router from '@/router';
@@ -50,26 +51,48 @@ export default {
 
                 } else {
 
-                    error.value ='some values must be entered'
+                    error.value ='some values must be entered';
+                    clearMessages();
                 }
         }
 
         const signIn = (email, password) => {
-            return axios.post('http://localhost:5000/auth/login', { email, password })
+            return axios.post('auth/login', { email, password },{ withCredentials: true })
                 .then(response => {
                     success.value = response.data.message;
-                    store.setAccessToken(response.data.accessToken);            
-                    error.value = "";
+                    store.setAccessToken(response.data.accessToken);
                     setTimeout(() => {
-                        router.push('/');
+                        if (response.data.user.role == 'user') {
+                            router.push('/');
+                        } else {
+                            router.push('/dashboard');
+                        }
+                        clearMessages();
                     }, 3000);
                 })
                 .catch(err => {
-                    success.value = "";
-                    error.value = err.response.data.message;
+                    if (typeof err.response == 'undefined') {
+                        console.log(err);
+                    }else {
+                        error.value = err.response.data.message;
+                        
+                    }
+                    
+                    clearMessages();
                 }
                 );
         }
+
+
+
+        const clearMessages = () => {
+                setTimeout(() => { 
+                        error.value = '';
+                        success.value = '';
+                }, 5000);
+        }
+
+
 
         return { email, password, success, error, handleSubmit }
     }
